@@ -1,11 +1,14 @@
 {
   "name": "biscus",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./nuxt.config.ts",
   "files": [
     "nuxt.config.ts",
-    "tokens.config",
+    "pages",
+    "assets",
+    "plugins",
+    "tailwind.config.ts",
     "layouts",
     "components",
     "app.vue"
