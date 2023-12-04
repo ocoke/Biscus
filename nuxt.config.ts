@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   typescript: {
     includeWorkspace: true
   },
+  runtimeConfig: {
+    githubToken: '',
+  },
   modules: ['@nuxtjs/tailwindcss', '@nuxtjs/apollo', '@nuxtjs/color-mode'],
   apollo: {
     tokenStorage: 'cookie',
