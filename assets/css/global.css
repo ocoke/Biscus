@@ -1,0 +1,52 @@
+body {
+    background-image: radial-gradient(#ddd 1px,transparent 0),radial-gradient(#ddd 1px,transparent 0);
+    background-position: 0 0,25px 25px;
+    background-size: 50px 50px;
+}
+.dark body {
+    background-image: none;
+    @apply bg-gray-950 text-gray-300;
+}
+html, body {
+    font-family: 'Montserrat', 'Noto Sans SC', 'Noto Serif SC', sans-serif, serif;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.page-card-radius {
+    @apply border-2 border-gray-700 p-6 h-full relative transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-900 overflow-hidden flex flex-col justify-between my-4;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 1px;
+    height: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#__nuxt, .page-container {
+    width: 100%;
+    height: 100%;
+}
+.second .sc-title {
+    @apply border-t-2 border-b-2 border-gray-700 py-5 md:px-2 text-center my-6 text-2xl font-bold;
+}
+
+.container {
+    max-width: 850px;
+    padding: 25px;
+    padding-bottom: 3.5rem;
+}
