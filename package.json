@@ -1,0 +1,16 @@
+{
+  "name": "biscus-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate",
+    "preview": "nuxi preview",
+    "prepare": "nuxi prepare"
+  },
+  "dependencies": {
+    "biscus": "^0.1.2",
+    "nuxt": "^3.8.2"
+  }
+}
