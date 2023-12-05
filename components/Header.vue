@@ -130,7 +130,7 @@ const toggleTheme = () => {
       </div>
       <Menu
         as="div"
-        class="relative inline-block text-left mr-3"
+        class="relative lg:inline-block text-left mr-3 hidden"
         style="margin-top: 0.05rem;"
       >
         <div>
@@ -248,15 +248,7 @@ const toggleTheme = () => {
                 {{ n.name }}
               </NuxtLink>
             </div>
-            <div>
-              <button
-                type="button"
-                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-200 ml-1"
-                @click="toggleTheme"
-              >
-                <span class="sr-only">Open Menu</span>
-              </button>
-            </div>
+          
           </div>
         </div>
       </DialogPanel>

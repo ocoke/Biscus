@@ -2,7 +2,7 @@
   "name": "my-theme-starter",
   "private": true,
   "dependencies": {
-    "biscus": "0.0.1"
+    "biscus": "0.1.1"
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
