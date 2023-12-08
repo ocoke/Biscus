@@ -70,13 +70,19 @@ export default defineAppConfig({
 })    
 ```
 
+4. Set Environment Variable `NUXT_GITHUB_TOKEN` to a GitHub Token without any scopes:
+
+```env
+NUXT_GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxx
+```
+
 
 
 ### Starting from an existing project
 
 Biscus is a Nuxt theme, you can add it to your existing project.
 
-> WARNING
+> [!WARNING]
 > There may be conflicts with your existing project or dependencies.
 
 
