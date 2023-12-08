@@ -1,34 +1,27 @@
 <script setup>
 import '~/assets/css/github-markdown.css'
 import Giscus from '@giscus/vue'
-// import { marked } from 'marked';
-// import hljs from 'highlight.js'
-// import '~/src/code.css';
 const { name, repositoryId, repository } = useAppConfig().biscus
 const route = useRoute()
 const id = route.params.id
 
-const query = gql`
-    query {
-        node(id: "${id}") {
-            ... on Discussion {
-                title
-                bodyText
-                bodyHTML
-                id
-                category {
-                    name
-                    id
-                }
-                createdAt
-                lastEditedAt
-                resourcePath
-            }
-        }
-    }
-`
-const { data, pending } = await useAsyncQuery(query)
+// const { data: resp, } = (await useFetch(`/api/blog?id=${id}`,))
+// const data = resp.value.data
 
+const { pending, data: resp, } = await useFetch(`/api/blog`, {
+  lazy: true,
+  query: {
+    id,
+  },
+})
+let data = ref();
+if (resp.value) {
+  data.value = resp.value.data
+}
+watch(resp, (d) => {
+  console.log(d)
+  data.value = d.data
+})
 
 const desc = (text) => {
   if (text.includes('[desc_end]')) {
@@ -57,6 +50,8 @@ const dateFormat = (date) => {
 const htmlProcess = (html) => {
   if (html.includes('<code class="notranslate">[desc_end]</code><br>')) {
     return html.split('<code class="notranslate">[desc_end]</code><br>')[1]
+  } else if (html.includes('<code class="notranslate">[desc_end]</code></p>')) {
+    return html.split('<code class="notranslate">[desc_end]</code></p>')[1]
   } else {
     return html
   }
@@ -94,7 +89,7 @@ const htmlProcess = (html) => {
         id="marked-content"
         class="content markdown-body articleContent"
         v-html="htmlProcess(data.node.bodyHTML)"
-      />
+      ></div>
       <ClientOnly>
         <Giscus
           id="comments"
@@ -110,6 +105,20 @@ const htmlProcess = (html) => {
           loading="lazy"
         />
       </ClientOnly>
+    </article>
+  </div>
+  <div
+    v-else-if="pending"
+    class="container"
+  >
+  <article class="animate-pulse">
+      <div class="text-5xl font-bold title dark:text-gray-200 bg-slate-200 dark:bg-slate-700 rounded h-14" style="width: 70%;">
+      </div>
+      <blockquote class="text-xl mt-3 bg-slate-200 dark:bg-slate-700 rounded h-10">
+      </blockquote>
+      <div
+        class="mt-6 h-96 bg-slate-200 dark:bg-slate-700 rounded"
+      ></div>
     </article>
   </div>
   <div

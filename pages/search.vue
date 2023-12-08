@@ -1,8 +1,13 @@
 <template>
+  <Title>Search - {{ name }}</Title>
+  <Meta
+    name="description"
+    content="Search the content in {{ name }}"
+  />
     <div class="fst-screen">
         <div class="container lg:pl-8">
             <h1 class="text-5xl font-bold">🔍 Search</h1>
-            <blockquote class="text-xl mt-3">Search the content in {{ name}}</blockquote>
+            <blockquote class="text-xl mt-3">Search the content in {{ name }}</blockquote>
         <form action="" method="get" class="search">   
           <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div class="relative">
@@ -17,7 +22,7 @@
       </form>
         <div class="results">
             <div class="filterGroup page-card-radius">
-              <p v-show="_resp_data.length == 0 && searchKeyword">There isn't any results.</p>
+              <p v-show="_resp_data.length == 0 && (searchKeyword || keywordInput)">There isn't any results.</p>
               <p v-show="_resp_data.length == 0 && !searchKeyword">Type the keyword and click "search" to start searching.</p>
               <p v-show="_resp_data.length == 1">There is only 1 result.</p>
               <p v-if="loading">Loading...</p>
@@ -26,7 +31,22 @@
             <div v-if="_resp_data" v-for="item in searchResp(_resp_data, keywordInput)" class="page-card-radius">
                 <NuxtLink :to="'/blog/' + item.id"><h3 class="text-2xl font-bold" v-html="item.title"></h3></NuxtLink>
                 <p class="my-2" v-html="item.bodyDesc"></p>
-            </div></div>
+            </div>
+            <div
+              v-if="loading"
+              class="page-card-radius animate-pulse"
+              v-for="i in 2"
+            >
+            <div class="link-text z-20">
+              <div class="text-2xl font-bold bg-slate-200 dark:bg-slate-700 h-5 rounded" style="width: 70%;"></div>
+
+              <div class="my-2 bg-slate-200 dark:bg-slate-700 h-10 rounded"></div>
+              </div>
+            </div>
+          
+          
+          </div>
+            
         </div>
     </div>
   </template>
@@ -138,23 +158,8 @@
     if (searchKeyword) {
         console.log('func search(): ' + searchKeyword)
         loading = true
-        const query = gql`
-            query {
-                search(query: "repo:${repository} ${searchKeyword}", type: DISCUSSION, first: 100) {
-                        edges {
-                            node {
-                                ... on Discussion {
-                                    id
-                                    title
-                                    resourcePath
-                                    bodyText
-                                }
-                            }
-                        }
-                    }
-                }`
-        let { data } = (await useAsyncQuery(query))
-        let rsp = (await data).value
+        let rsp = await $fetch(`/api/search?keyword=${searchKeyword}&first=100&repo=${repository}`)
+        rsp = rsp.data
         // console.log(rsp)
         loading = false
         if (rsp && rsp.search && rsp.search.edges) {

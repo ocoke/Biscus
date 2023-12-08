@@ -20,9 +20,15 @@
     </h2>
     <div
       v-if="pending"
-      class="page-card"
+      class="page-card-radius animate-pulse"
+      v-for="i in 6"
     >
-      Loading...
+    <div class="link-text z-20">
+      <div class="text-2xl font-bold bg-slate-200 dark:bg-slate-700 h-5 rounded" style="width: 70%;"></div>
+
+      <div class="my-2 bg-slate-200 dark:bg-slate-700 h-9 rounded"></div>
+      <div class="my-2 bg-slate-200 dark:bg-slate-700 h-3 rounded"></div>
+      </div>
     </div>
     <div
       v-for="item in data.repository.discussions.nodes"
@@ -56,26 +62,23 @@
 </template>
 <script setup>
 const { banner, categoryId, name, description, repository } = useAppConfig().biscus
-const query = gql`
-   query {
-       repository(owner: "${repository.split('/')[0]}", name: "${repository.split('/')[1]}") {
-         discussions(first: 6, categoryId: "${categoryId}") {
-           nodes {
-             title
-             url
-             id
-             bodyText
-             category {
-               name
-               id
-             }
-             createdAt
-           }
-         }
-       }
-     }
-   `
-const { data, pending } = await useAsyncQuery(query)
+// const headers = useRequestHeaders(['cookie'])
+const { pending, data: resp, } = await useFetch(`/api/list`, {
+  lazy: true,
+  query: {
+    category: categoryId,
+    repo: repository,
+    first: 6,
+  },
+})
+let data = ref();
+if (resp.value) {
+  data.value = resp.value.data
+}
+watch(resp, (d) => {
+  console.log(d)
+  data.value = d.data
+})
 const desc = (text) => {
   if (text.includes('[desc_end]')) {
     return text.split('[desc_end]')[0]

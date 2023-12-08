@@ -27,10 +27,11 @@ export default defineAppConfig({
           href: '/'
         },
         {
-          name: 'About',
-          href: '/about'
+          name: 'Search',
+          href: '/search'
         }
       ]
     },
-  }
+  },
+  cacheMaxAge: 60 * 60,
 })
