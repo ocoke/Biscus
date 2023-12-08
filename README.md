@@ -40,8 +40,6 @@ export default defineAppConfig({
     name: 'My Project',
     // description of the blog
     description: 'This is my project',
-    // a github token without any scope, used to fetch data from github
-    githubToken: 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     // the id of the discussions category
     categoryId: 'DIC_kwDOKWmCx84CZh1q',
     // repository of the blog
@@ -71,6 +69,8 @@ export default defineAppConfig({
   }
 })    
 ```
+
+
 
 ### Starting from an existing project
 
@@ -103,8 +103,6 @@ export default defineAppConfig({
     name: 'My Project',
     // description of the blog
     description: 'This is my project',
-    // a github token without any scope, used to fetch data from github
-    githubToken: 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     // the id of the discussions category
     categoryId: 'DIC_kwDOKWmCx84CZh1q',
     // repository of the blog
@@ -135,3 +133,8 @@ export default defineAppConfig({
 })    
 ```
 
+4. Set Environment Variable `NUXT_GITHUB_TOKEN` to a GitHub Token without any scopes:
+
+```env
+NUXT_GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxx
+```
